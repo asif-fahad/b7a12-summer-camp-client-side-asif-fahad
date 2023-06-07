@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import './Login.css'
 import { AuthContext } from '../../../providers/AuthProviders';
 import { GoogleAuthProvider } from 'firebase/auth';
 import useTitle from '../../../hooks/useTitle';
@@ -83,12 +82,12 @@ const Login = () => {
                             <div className="form-control mt-6">
                                 <button className="btn btn-primary">Login</button>
                             </div>
-                            <img
-                                onClick={handleGoogleLogin}
-                                className="social-button"
-                                src="https://i.ibb.co/gSTHXZJ/google-btn.png"
-                                alt=""
-                            />
+                            <div className="divider"></div>
+                            <div className='text-center'>
+                                <button onClick={handleGoogleLogin} className="btn btn-circle btn-outline">
+                                    G
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>

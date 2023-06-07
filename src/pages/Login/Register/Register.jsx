@@ -112,12 +112,12 @@ const Register = () => {
                             <div className="form-control mt-6">
                                 <button className="btn btn-primary">Register</button>
                             </div>
-                            <img
-                                onClick={handleGoogleLogin}
-                                className="social-button"
-                                src="https://i.ibb.co/gSTHXZJ/google-btn.png"
-                                alt=""
-                            />
+                            <div className="divider"></div>
+                            <div className='text-center'>
+                                <button onClick={handleGoogleLogin} className="btn btn-circle btn-outline">
+                                    G
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>
