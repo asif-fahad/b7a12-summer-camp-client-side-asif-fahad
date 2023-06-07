@@ -89,12 +89,6 @@ const Login = () => {
                                 src="https://i.ibb.co/gSTHXZJ/google-btn.png"
                                 alt=""
                             />
-                            <img
-                                onClick={handleGithubLogin}
-                                className="social-button"
-                                src="https://i.ibb.co/g9f4P0S/github-btn.png"
-                                alt=""
-                            />
                         </form>
                     </div>
                 </div>
