@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { GoogleAuthProvider, updateProfile } from 'firebase/auth';
 import { AuthContext } from '../../../providers/AuthProviders';
@@ -14,6 +14,11 @@ const Register = () => {
     // console.log(user)
 
     const [error, setError] = useState('');
+
+    const location = useLocation();
+    const navigate = useNavigate()
+    // console.log('login page Location', location)
+    const from = location?.state?.from?.pathname || '/'
 
     const googleProvider = new GoogleAuthProvider();
 
@@ -40,6 +45,7 @@ const Register = () => {
                 // console.log(loggedUser);
                 form.reset();
                 updateUserData(result.user, name, photo);
+                navigate(from, { replace: true });
             })
             .catch(error => {
                 // console.log(error);
@@ -65,6 +71,7 @@ const Register = () => {
             .then(result => {
                 const loggedInUser = result.user;
                 // console.log(loggedInUser)
+                navigate(from, { replace: true });
             })
             .catch(error => {
                 // console.log('error', error.message);
