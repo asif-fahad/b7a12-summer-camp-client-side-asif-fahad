@@ -9,6 +9,7 @@ const Login = () => {
     const { signIn, googleSignIn } = useContext(AuthContext);
 
     const [error, setError] = useState('');
+    const [showPassword, setShowPassword] = useState(false)
 
     useTitle('Login')
 
@@ -73,7 +74,8 @@ const Login = () => {
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="password" name='password' placeholder="password" className="input input-bordered" required />
+                                <input type={showPassword ? "text" : "password"} name='password' placeholder="password" className="input input-bordered" required />
+                                <p className='cursor-pointer text-xs' onClick={() => setShowPassword(true)}>Show Password</p>
                                 <label className="label">
                                     <Link to='/register' className="label-text-alt link link-hover">Don't have a account? Register now.</Link>
                                 </label>

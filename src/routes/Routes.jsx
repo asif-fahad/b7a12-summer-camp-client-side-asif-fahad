@@ -30,17 +30,16 @@ const router = createBrowserRouter([
             {
                 path: 'instructors',
                 element: <Instructors></Instructors>
-            }
-            ,
+            },
             {
                 path: 'classes',
                 element: <Classes></Classes>
+            },
+            {
+                path: "/dashboard",
+                element: <Dashboard></Dashboard>
             }
         ]
-    },
-    {
-        path: "/dashboard",
-        element: <Dashboard></Dashboard>,
     },
 ]);
 

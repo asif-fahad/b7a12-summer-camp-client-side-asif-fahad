@@ -9,7 +9,7 @@ const Register = () => {
 
     useTitle('Register');
 
-    const { user, createUser, googleSignIn, githubSignIn } = useContext(AuthContext);
+    const { user, createUser, googleSignIn } = useContext(AuthContext);
 
     // console.log(user)
 
@@ -30,6 +30,7 @@ const Register = () => {
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
+        const confirmPassword = form.confirmPassword.value;
         const name = form.name.value;
         const photo = form.photo.value;
         // console.log(email, password, name, photo);
@@ -37,6 +38,10 @@ const Register = () => {
         if (password.length < 6) {
             setError('Please add at least 6 characters in your password')
             return;
+        }
+
+        if (password === confirmPassword) {
+            return password;
         }
 
         createUser(email, password)
@@ -111,6 +116,10 @@ const Register = () => {
                                     <span className="label-text">Password</span>
                                 </label>
                                 <input type="password" name='password' placeholder="password" className="input input-bordered" required />
+                                <label className="label">
+                                    <span className="label-text">Confirm Password</span>
+                                </label>
+                                <input type="password" name='confirmPassword' placeholder="Confirm Password" className="input input-bordered" required />
                                 <p className='text-red-600'>{error}</p>
                                 <label className="label">
                                     <Link to='/login' className="label-text-alt link link-hover">Already have an account? Login now.</Link>
