@@ -46,8 +46,9 @@ const Navbar = () => {
                 </div>
                 <Link to='/' className="flex items-center">
                     <img src={logo} className="h-8 mr-3" alt="Fahad's Toys" />
-                    <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Fahad's Sports</span>
+                    <span className="self-center text-2xl font-semibold whitespace-nowrap text-dark">Fahad's Sports</span>
                 </Link>
+
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1 space-x-10 flex items-center">
