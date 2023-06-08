@@ -1,24 +1,21 @@
 import React, { useContext, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
 import { GoogleAuthProvider, updateProfile } from 'firebase/auth';
 import { AuthContext } from '../../../providers/AuthProviders';
 import useTitle from '../../../hooks/useTitle';
+import Swal from 'sweetalert2';
 
 const Register = () => {
 
     useTitle('Register');
 
-    const { user, createUser, googleSignIn } = useContext(AuthContext);
+    const { user, createUser, googleSignIn, githubSignIn } = useContext(AuthContext);
+
+    const navigate = useNavigate();
 
     // console.log(user)
 
     const [error, setError] = useState('');
-
-    const location = useLocation();
-    const navigate = useNavigate()
-    // console.log('login page Location', location)
-    const from = location?.state?.from?.pathname || '/'
 
     const googleProvider = new GoogleAuthProvider();
 
@@ -40,17 +37,13 @@ const Register = () => {
             return;
         }
 
-        if (password === confirmPassword) {
-            return password;
-        }
-
         createUser(email, password)
             .then(result => {
                 const loggedUser = result.user;
                 // console.log(loggedUser);
                 form.reset();
                 updateUserData(result.user, name, photo);
-                navigate(from, { replace: true });
+                navigate('/')
             })
             .catch(error => {
                 // console.log(error);
@@ -63,6 +56,27 @@ const Register = () => {
             })
                 .then(() => {
                     // console.log('user name updated')
+                    const saveUser = { name: name, email: user.email, photo: photo }
+                    fetch('http://localhost:5000/users', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(saveUser)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.insertedId) {
+                                Swal.fire({
+                                    position: 'top-end',
+                                    icon: 'success',
+                                    title: 'User created successfully.',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                                navigate('/');
+                            }
+                        })
                 })
                 .catch(error => {
                     setError(error.message);
@@ -76,7 +90,6 @@ const Register = () => {
             .then(result => {
                 const loggedInUser = result.user;
                 // console.log(loggedInUser)
-                navigate(from, { replace: true });
             })
             .catch(error => {
                 // console.log('error', error.message);
@@ -116,10 +129,11 @@ const Register = () => {
                                     <span className="label-text">Password</span>
                                 </label>
                                 <input type="password" name='password' placeholder="password" className="input input-bordered" required />
+                                <p className='text-red-600'>{error}</p>
                                 <label className="label">
                                     <span className="label-text">Confirm Password</span>
                                 </label>
-                                <input type="password" name='confirmPassword' placeholder="Confirm Password" className="input input-bordered" required />
+                                <input type="password" name='confirmPassword' placeholder="password" className="input input-bordered" required />
                                 <p className='text-red-600'>{error}</p>
                                 <label className="label">
                                     <Link to='/login' className="label-text-alt link link-hover">Already have an account? Login now.</Link>
