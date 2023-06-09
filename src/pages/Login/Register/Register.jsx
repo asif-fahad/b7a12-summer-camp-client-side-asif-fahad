@@ -41,6 +41,14 @@ const Register = () => {
             setError('Please add at least 6 characters in your password')
             return;
         }
+        if (!/[A-Z]/.test(password)) {
+            setError('Please add at least one uppercase characters in your password')
+            return;
+        }
+        if (!/[!@#$%^&*]/.test(password)) {
+            setError('Please add at least one special characters in your password')
+            return;
+        }
 
         createUser(email, password)
             .then(result => {
