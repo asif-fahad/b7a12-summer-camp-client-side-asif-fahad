@@ -9,7 +9,7 @@ const Register = () => {
 
     useTitle('Register');
 
-    const { user, createUser, googleSignIn, githubSignIn } = useContext(AuthContext);
+    const { user, createUser, googleSignIn } = useContext(AuthContext);
 
     const navigate = useNavigate();
 
@@ -31,6 +31,11 @@ const Register = () => {
         const name = form.name.value;
         const photo = form.photo.value;
         // console.log(email, password, name, photo);
+
+        if (password !== confirmPassword) {
+            setError('Password does not match');
+            return;
+        }
 
         if (password.length < 6) {
             setError('Please add at least 6 characters in your password')
