@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import useTitle from '../../../../hooks/useTitle';
 
 const ManageClasses = () => {
     const [classes, setClasses] = useState([]);
+
+    useTitle('Manage Classes');
 
     useEffect(() => {
         fetch('http://localhost:5000/classes')

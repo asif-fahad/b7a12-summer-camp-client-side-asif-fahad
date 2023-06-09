@@ -1,8 +1,11 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../../providers/AuthProviders';
 import Swal from 'sweetalert2';
+import useTitle from '../../../../hooks/useTitle';
 
 const AddAClass = () => {
+
+    useTitle('Add a Class');
 
     const { user } = useContext(AuthContext);
 

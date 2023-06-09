@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import useTitle from '../../hooks/useTitle';
 
 const Instructors = () => {
+
+    useTitle('Instructors');
+
     const [instructors, setInstructors] = useState([]);
 
     useEffect(() => {

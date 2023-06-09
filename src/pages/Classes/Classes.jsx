@@ -1,9 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../providers/AuthProviders';
 import Swal from 'sweetalert2';
+import useTitle from '../../hooks/useTitle';
 
 const Classes = () => {
     const { user } = useContext(AuthContext);
+
+    useTitle('Classes');
 
     const [classes, setClasses] = useState([]);
     const [isButtonDisabled, setButtonDisabled] = useState(false);

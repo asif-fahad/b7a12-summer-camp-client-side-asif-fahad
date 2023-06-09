@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import useTitle from '../../../../hooks/useTitle';
 
 const MyClasses = () => {
+
+    useTitle('My Classes');
 
     const [classes, setClasses] = useState([]);
 
@@ -47,7 +50,7 @@ const MyClasses = () => {
                             <td>{c.price}</td>
                             <td>{c.seats}</td>
                             <th>
-                                <button className="btn btn-ghost btn-xs">{c.status}</button>
+                                <h1>{c.status}</h1>
                             </th>
                         </tr>)
                     }

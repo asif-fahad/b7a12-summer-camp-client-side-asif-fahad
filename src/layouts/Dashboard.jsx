@@ -2,8 +2,12 @@ import React from 'react';
 import useAdmin from '../hooks/useAdmin';
 import { NavLink, Outlet } from 'react-router-dom';
 import useInstructor from '../hooks/useInstructor';
+import { FaHome, FaChalkboardTeacher, FaUserGear, FaUser, FaMoneyBill } from 'react-icons/fa';
+import useTitle from '../hooks/useTitle';
 
 const Dashboard = () => {
+
+    useTitle('Dashboard');
 
     const [isAdmin] = useAdmin();
     const [isInstructor] = useInstructor();
@@ -27,28 +31,24 @@ const Dashboard = () => {
                         {
                             isAdmin ?
                                 <>
-                                    <li><NavLink to='/dashboard/manageclasses'>Manage Classes</NavLink></li>
-                                    <li><NavLink to='/dashboard/manageusers'>Manage Users</NavLink></li>
+                                    <li><NavLink to='/dashboard/manageclasses'><FaUserGear></FaUserGear>Manage Classes</NavLink></li>
+                                    <li><NavLink to='/dashboard/manageusers'><FaUserGear></FaUserGear>Manage Users</NavLink></li>
                                 </> :
                                 isInstructor ?
                                     <>
-                                        <li><NavLink to='/dashboard/addaclass'>Add a Class</NavLink></li>
-                                        <li><NavLink to='/dashboard/myclasses'>My Classes</NavLink></li>
+                                        <li><NavLink to='/dashboard/addaclass'><FaChalkboardTeacher></FaChalkboardTeacher>Add a Class</NavLink></li>
+                                        <li><NavLink to='/dashboard/myclasses'><FaChalkboardTeacher></FaChalkboardTeacher>My Classes</NavLink></li>
                                     </> :
                                     <>
-                                        <li><NavLink to='/dashboard/myenrolledclasess'>My Selected Classes</NavLink></li>
-                                        <li><NavLink to='/dashboard/myselectedclasses'>My Enrolled Classes</NavLink></li>
-                                        <li><NavLink to='/dashboard/payment'>Payment</NavLink></li>
+                                        <li><NavLink to='/dashboard/myenrolledclasess'><FaUser></FaUser>My Selected Classes</NavLink></li>
+                                        <li><NavLink to='/dashboard/myselectedclasses'><FaUser></FaUser>My Enrolled Classes</NavLink></li>
+                                        <li><NavLink to='/dashboard/payment'><FaMoneyBill></FaMoneyBill>Payment</NavLink></li>
                                     </>
                         }
 
 
-
-
-
-
-                        <div className="divider">OR</div>
-                        <li><NavLink to='/'>Home</NavLink></li>
+                        <div className="divider"></div>
+                        <li><NavLink to='/'><FaHome></FaHome>Home</NavLink></li>
                     </ul>
 
                 </div>

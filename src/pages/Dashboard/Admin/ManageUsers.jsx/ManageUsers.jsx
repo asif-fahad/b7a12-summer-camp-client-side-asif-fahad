@@ -2,8 +2,12 @@ import React from 'react';
 import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
+import useTitle from '../../../../hooks/useTitle';
 
 const ManageUsers = () => {
+
+    useTitle('Manage Users');
+
     const [axiosSecure] = useAxiosSecure();
     const { data: users = [], refetch } = useQuery(['users'], async () => {
         const res = await axiosSecure.get('/users')

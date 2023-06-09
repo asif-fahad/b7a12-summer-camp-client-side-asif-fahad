@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
+import useTitle from '../../../../hooks/useTitle';
 
 const MySelectedClasses = () => {
+
+    useTitle('My Selected Classes');
+
     const [classes, setClasses] = useState([]);
 
     useEffect(() => {
