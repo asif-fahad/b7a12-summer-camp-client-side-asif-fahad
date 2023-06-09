@@ -23,9 +23,6 @@ const Classes = () => {
 
         const { _id, name, iName, photo, price, seats, email } = item;
 
-        if (!user) {
-            alert('Please login first')
-        }
 
         if (user && user.email) {
             const cartItem = { menuItemId: _id, name, iName, photo, price, seats, email: user.email }
