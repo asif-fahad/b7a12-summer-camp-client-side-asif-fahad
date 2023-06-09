@@ -44,7 +44,7 @@ const router = createBrowserRouter([
         element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
         children: [
             {
-                path: '/manageusers',
+                path: 'manageusers',
                 element: <ManageUsers></ManageUsers>
             },
             {
