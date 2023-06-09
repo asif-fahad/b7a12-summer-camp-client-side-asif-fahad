@@ -21,6 +21,7 @@ const AddAClass = () => {
 
 
         const newClass = { name, photo, iName, email, price, seats };
+        newClass.status = pending;
 
         console.log(newClass);
 
