@@ -45,6 +45,10 @@ const MySelectedClasses = () => {
         })
     }
 
+    const handlePay = _id => {
+
+    }
+
 
     return (
         <div className="overflow-x-auto">
@@ -59,7 +63,6 @@ const MySelectedClasses = () => {
                         <th>Instructor Email</th>
                         <th>Price</th>
                         <th>Available Seats</th>
-                        <th>Status</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -84,6 +87,9 @@ const MySelectedClasses = () => {
                             <td>{c.seats}</td>
                             <th>
                                 <button className="btn btn-ghost btn-xs" onClick={() => handleDelete(c._id)}>Delete</button>
+                            </th>
+                            <th>
+                                <button className="btn btn-ghost btn-xs" onClick={() => handlePay(c._id)}>Pay</button>
                             </th>
                         </tr>)
                     }
