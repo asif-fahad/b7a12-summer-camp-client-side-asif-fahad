@@ -7,6 +7,8 @@ import Home from "../pages/Home/Home/Home";
 import Dashboard from "../layouts/Dashboard";
 import Instructors from "../pages/Instructors/Instructors";
 import Classes from "../pages/Classes/Classes";
+import PrivateRoute from "./PrivateRoute";
+import ManageUsers from "../pages/Dashboard/Admin/ManageUsers.jsx/ManageUsers";
 
 
 const router = createBrowserRouter([
@@ -35,10 +37,32 @@ const router = createBrowserRouter([
                 path: 'classes',
                 element: <Classes></Classes>
             },
+        ]
+    },
+    {
+        path: "/dashboard",
+        element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+        children: [
             {
-                path: "/dashboard",
-                element: <Dashboard></Dashboard>
-            }
+                path: '/manageusers',
+                element: <ManageUsers></ManageUsers>
+            },
+            {
+                path: 'login',
+                element: <Login></Login>
+            },
+            {
+                path: 'register',
+                element: <Register></Register>
+            },
+            {
+                path: 'instructors',
+                element: <Instructors></Instructors>
+            },
+            {
+                path: 'classes',
+                element: <Classes></Classes>
+            },
         ]
     },
 ]);
