@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
 const Instructors = () => {
-    const [classes, setClasses] = useState([]);
+    const [instructors, setInstructors] = useState([]);
 
     useEffect(() => {
         fetch('http://localhost:5000/users')
             .then(res => res.json())
             .then(data => {
                 const filter = data.filter(f => f.role == 'instructor');
-                setClasses(filter);
+                setInstructors(filter);
             })
     }, [])
 
@@ -28,7 +28,7 @@ const Instructors = () => {
                 <tbody>
                     {/* row 1 */}
                     {
-                        classes.map((c, index) => <tr key={c._id}>
+                        instructors.map((c, index) => <tr key={c._id}>
                             <td>
                                 {index + 1}
                             </td>
