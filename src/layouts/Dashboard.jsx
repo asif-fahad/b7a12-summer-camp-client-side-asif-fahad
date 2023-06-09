@@ -2,7 +2,7 @@ import React from 'react';
 import useAdmin from '../hooks/useAdmin';
 import { NavLink, Outlet } from 'react-router-dom';
 import useInstructor from '../hooks/useInstructor';
-import { FaHome, FaChalkboardTeacher, FaUserGear, FaUser, FaMoneyBill } from 'react-icons/fa';
+import { FaHome, FaChalkboardTeacher, FaUserShield, FaUser, FaMoneyBill } from 'react-icons/fa';
 import useTitle from '../hooks/useTitle';
 
 const Dashboard = () => {
@@ -31,8 +31,8 @@ const Dashboard = () => {
                         {
                             isAdmin ?
                                 <>
-                                    <li><NavLink to='/dashboard/manageclasses'><FaUserGear></FaUserGear>Manage Classes</NavLink></li>
-                                    <li><NavLink to='/dashboard/manageusers'><FaUserGear></FaUserGear>Manage Users</NavLink></li>
+                                    <li><NavLink to='/dashboard/manageclasses'><FaUserShield></FaUserShield>Manage Classes</NavLink></li>
+                                    <li><NavLink to='/dashboard/manageusers'><FaUserShield></FaUserShield>Manage Users</NavLink></li>
                                 </> :
                                 isInstructor ?
                                     <>

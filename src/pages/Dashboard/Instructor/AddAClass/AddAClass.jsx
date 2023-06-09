@@ -28,7 +28,7 @@ const AddAClass = () => {
 
         console.log(newClass);
 
-        fetch('http://localhost:5000/classes', {
+        fetch('https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/classes', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

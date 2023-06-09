@@ -12,7 +12,7 @@ const Classes = () => {
     const [isButtonDisabled, setButtonDisabled] = useState(false);
 
     useEffect(() => {
-        fetch('http://localhost:5000/classes')
+        fetch('https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/classes')
             .then(res => res.json())
             .then(data => setClasses(data))
     }, [])
@@ -29,7 +29,7 @@ const Classes = () => {
 
         if (user && user.email) {
             const cartItem = { menuItemId: _id, name, iName, photo, price, seats, email: user.email }
-            fetch('http://localhost:5000/carts', {
+            fetch('https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/carts', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'

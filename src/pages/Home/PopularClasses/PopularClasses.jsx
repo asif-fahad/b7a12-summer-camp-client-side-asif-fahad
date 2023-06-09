@@ -5,7 +5,7 @@ const PopularClasses = () => {
     const [classes, setClasses] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/classes')
+        fetch('https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/classes')
             .then(res => res.json())
             .then(data => setClasses(data))
     }, [])
