@@ -9,6 +9,13 @@ import Instructors from "../pages/Instructors/Instructors";
 import Classes from "../pages/Classes/Classes";
 import PrivateRoute from "./PrivateRoute";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers.jsx/ManageUsers";
+import AdminRoute from "./AdminRoute";
+import ManageClasses from "../pages/Dashboard/Admin/ManageClasses/ManageClasses";
+import AddAClass from "../pages/Dashboard/Instructor/AddAClass/AddAClass";
+import MyClasses from "../pages/Dashboard/Instructor/MyClasses/MyClasses";
+import MyEnrolledClasses from "../pages/Dashboard/Student/MyEnrolledClasses/MyEnrolledClasses";
+import MySelectedClasses from "../pages/Dashboard/Student/MySelectedClasses/MySelectedClasses";
+import Payment from "../pages/Dashboard/Student/Payment/Payment";
 
 
 const router = createBrowserRouter([
@@ -45,23 +52,31 @@ const router = createBrowserRouter([
         children: [
             {
                 path: 'manageusers',
-                element: <ManageUsers></ManageUsers>
+                element: <AdminRoute><ManageUsers></ManageUsers></AdminRoute>
             },
             {
-                path: 'login',
-                element: <Login></Login>
+                path: 'manageclasses',
+                element: <AdminRoute><ManageClasses></ManageClasses></AdminRoute>
             },
             {
-                path: 'register',
-                element: <Register></Register>
+                path: 'addaclass',
+                element: <AddAClass></AddAClass>
             },
             {
-                path: 'instructors',
-                element: <Instructors></Instructors>
+                path: 'myclasses',
+                element: <MyClasses></MyClasses>
             },
             {
-                path: 'classes',
-                element: <Classes></Classes>
+                path: 'myenrolledclasess',
+                element: <MyEnrolledClasses></MyEnrolledClasses>
+            },
+            {
+                path: 'myselectedclasses',
+                element: <MySelectedClasses></MySelectedClasses>
+            },
+            {
+                path: 'payment',
+                element: <Payment></Payment>
             },
         ]
     },

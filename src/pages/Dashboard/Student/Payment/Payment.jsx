@@ -1,11 +1,11 @@
 import React from 'react';
 
-const ManageUsers = () => {
+const Payment = () => {
     return (
         <div>
-            manage users
+            Payment
         </div>
     );
 };
 
-export default ManageUsers;
+export default Payment;

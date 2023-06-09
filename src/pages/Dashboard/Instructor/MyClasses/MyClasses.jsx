@@ -1,11 +1,11 @@
 import React from 'react';
 
-const ManageUsers = () => {
+const MyClasses = () => {
     return (
         <div>
-            manage users
+
         </div>
     );
 };
 
-export default ManageUsers;
+export default MyClasses;
