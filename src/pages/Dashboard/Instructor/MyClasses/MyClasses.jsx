@@ -30,7 +30,7 @@ const MyClasses = () => {
                 <tbody>
                     {/* row 1 */}
                     {
-                        classes.map((c, index) => <tr key={c.id}>
+                        classes.map((c, index) => <tr key={c._id}>
                             <td>
                                 {index + 1}
                             </td>
