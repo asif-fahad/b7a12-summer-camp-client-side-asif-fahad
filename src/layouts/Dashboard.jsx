@@ -1,16 +1,19 @@
 import React from 'react';
-import useAdmin from '../hooks/useAdmin';
+// import useAdmin from '../hooks/useAdmin';
 import { NavLink, Outlet } from 'react-router-dom';
-import useInstructor from '../hooks/useInstructor';
+// import useInstructor from '../hooks/useInstructor';
 import { FaHome, FaChalkboardTeacher, FaUserShield, FaUser, FaMoneyBill } from 'react-icons/fa';
 import useTitle from '../hooks/useTitle';
+import useRoles from '../hooks/useRoles';
 
 const Dashboard = () => {
 
     useTitle('Dashboard');
 
-    const [isAdmin] = useAdmin();
-    const [isInstructor] = useInstructor();
+    // const [isAdmin] = useAdmin();
+    // const [isInstructor] = useInstructor();
+
+    const [roles, isRolesLoading] = useRoles();
 
 
     return (
@@ -28,13 +31,15 @@ const Dashboard = () => {
                     <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content space-y-4">
                         {/* Sidebar content here */}
 
+
+
                         {
-                            isAdmin ?
+                            roles == "Admin" ?
                                 <>
                                     <li><NavLink to='/dashboard/manageclasses'><FaUserShield></FaUserShield>Manage Classes</NavLink></li>
                                     <li><NavLink to='/dashboard/manageusers'><FaUserShield></FaUserShield>Manage Users</NavLink></li>
                                 </> :
-                                isInstructor ?
+                                roles == "Instructor" ?
                                     <>
                                         <li><NavLink to='/dashboard/addaclass'><FaChalkboardTeacher></FaChalkboardTeacher>Add a Class</NavLink></li>
                                         <li><NavLink to='/dashboard/myclasses'><FaChalkboardTeacher></FaChalkboardTeacher>My Classes</NavLink></li>
@@ -42,7 +47,7 @@ const Dashboard = () => {
                                     <>
                                         <li><NavLink to='/dashboard/myenrolledclasess'><FaUser></FaUser>My Selected Classes</NavLink></li>
                                         <li><NavLink to='/dashboard/myselectedclasses'><FaUser></FaUser>My Enrolled Classes</NavLink></li>
-                                        <li><NavLink to='/dashboard/payment'><FaMoneyBill></FaMoneyBill>Payment</NavLink></li>
+                                        <li><NavLink to='/dashboard/paymentHistory'><FaMoneyBill></FaMoneyBill>Payment History</NavLink></li>
                                     </>
                         }
 

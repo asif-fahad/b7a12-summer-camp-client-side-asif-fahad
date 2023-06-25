@@ -15,7 +15,7 @@ const ManageUsers = () => {
     })
 
     const handleMakeAdmin = user => {
-        fetch(`https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/users/admin/${user._id}`, {
+        fetch(`http://localhost:5000/users/admin/${user._id}`, {
             method: 'PATCH'
         })
             .then(res => res.json())
@@ -35,7 +35,7 @@ const ManageUsers = () => {
     }
 
     const handleMakeInstructor = user => {
-        fetch(`https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/users/instructor/${user._id}`, {
+        fetch(`http://localhost:5000/users/instructor/${user._id}`, {
             method: 'PATCH'
         })
             .then(res => res.json())
@@ -80,12 +80,8 @@ const ManageUsers = () => {
                                 <th>{index + 1}</th>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
-                                <td>{user.role === 'admin' ? 'admin' :
-                                    <button onClick={() => handleMakeAdmin(user)} className="btn btn-ghost bg-orange-600  text-white">Admin</button>
-                                }</td>
-                                <td>{user.role === 'instructor' ? 'instructor' :
-                                    <button onClick={() => handleMakeInstructor(user)} className="btn btn-ghost bg-orange-600  text-white">Instructor</button>
-                                }</td>
+                                <td><button onClick={() => handleMakeAdmin(user)} disabled={user?.role === 'Admin'} className="btn btn-ghost bg-orange-600  text-white">Admin</button></td>
+                                <td><button onClick={() => handleMakeInstructor(user)} disabled={user?.role === 'Instructor'} className="btn btn-ghost bg-orange-600  text-white">Instructor</button></td>
                                 <td><button onClick={() => handleDelete(user)} className="btn btn-ghost bg-red-600  text-white">Delete</button></td>
                             </tr>)
                         }

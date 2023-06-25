@@ -20,15 +20,16 @@ const AddAClass = () => {
         const iName = form.iName.value;
         const email = form.email.value;
         const price = parseFloat(form.price.value);
-        const seats = parseFloat(form.seats.value);
+        const seats = parseInt(form.seats.value);
 
 
         const newClass = { name, photo, iName, email, price, seats };
-        newClass.status = pending;
+        newClass.status = Pending;
+        newClass.enrolled = 0;
 
         console.log(newClass);
 
-        fetch('https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/classes', {
+        fetch('http://localhost:5000/classes', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

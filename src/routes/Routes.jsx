@@ -17,6 +17,9 @@ import MyEnrolledClasses from "../pages/Dashboard/Student/MyEnrolledClasses/MyEn
 import MySelectedClasses from "../pages/Dashboard/Student/MySelectedClasses/MySelectedClasses";
 import Payment from "../pages/Dashboard/Student/Payment/Payment";
 import InstructorRoute from "./InstructorRoute";
+import PaymentHistory from "../pages/Dashboard/Student/PaymentHistory/PaymentHistory";
+import UpdateClass from "../pages/Dashboard/Instructor/UpdateClass/UpdateClass";
+import Feedback from "../pages/Dashboard/Admin/Feedback/Feedback";
 
 
 const router = createBrowserRouter([
@@ -60,12 +63,20 @@ const router = createBrowserRouter([
                 element: <AdminRoute><ManageClasses></ManageClasses></AdminRoute>
             },
             {
+                path: 'manageclasses/feedback/:id',
+                element: <AdminRoute><Feedback></Feedback></AdminRoute>
+            },
+            {
                 path: 'addaclass',
                 element: <InstructorRoute><AddAClass></AddAClass></InstructorRoute>
             },
             {
                 path: 'myclasses',
                 element: <InstructorRoute><MyClasses></MyClasses></InstructorRoute>
+            },
+            {
+                path: 'updateClass/:id',
+                element: <InstructorRoute><UpdateClass></UpdateClass></InstructorRoute>
             },
             {
                 path: 'myenrolledclasess',
@@ -76,9 +87,13 @@ const router = createBrowserRouter([
                 element: <PrivateRoute><MySelectedClasses></MySelectedClasses></PrivateRoute>
             },
             {
-                path: 'payment',
+                path: 'payment/:id',
                 element: <PrivateRoute><Payment></Payment></PrivateRoute>
             },
+            {
+                path: 'paymentHistory',
+                element: <PrivateRoute><PaymentHistory></PaymentHistory></PrivateRoute>
+            }
         ]
     },
 ]);

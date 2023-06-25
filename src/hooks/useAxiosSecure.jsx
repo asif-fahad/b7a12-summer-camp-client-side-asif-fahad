@@ -1,16 +1,15 @@
-import { useContext, useEffect } from 'react';
 import axios from 'axios';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProviders';
 
 const axiosSecure = axios.create({
-    baseURL: 'https://b7a12-summer-camp-server-side-asif-fahad.vercel.app',
+    baseURL: 'http://localhost:5000',
 });
 
 const useAxiosSecure = () => {
-    const { logOut } = useContext(AuthContext);
     const navigate = useNavigate();
-
+    const { logOut } = useContext(AuthContext);
     useEffect(() => {
         axiosSecure.interceptors.request.use((config) => {
             const token = localStorage.getItem('access-token');
@@ -30,7 +29,7 @@ const useAxiosSecure = () => {
                 return Promise.reject(error);
             }
         );
-    }, [logOut, navigate]);
+    }, [navigate]);
 
     return [axiosSecure];
 };

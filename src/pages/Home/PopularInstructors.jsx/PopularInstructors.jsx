@@ -4,13 +4,12 @@ const PopularInstructors = () => {
 
     const [instructors, setInstructors] = useState([]);
 
+    // console.log(instructors);
+
     useEffect(() => {
-        fetch('https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/users')
+        fetch('http://localhost:5000/users/instructor')
             .then(res => res.json())
-            .then(data => {
-                const filter = data.filter(f => f.role == 'instructor');
-                setInstructors(filter);
-            })
+            .then(data => setInstructors(data))
     }, [])
 
     return (

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import useTitle from '../../../../hooks/useTitle';
+import { Link } from 'react-router-dom';
 
 const MySelectedClasses = () => {
 
@@ -9,7 +10,7 @@ const MySelectedClasses = () => {
     const [classes, setClasses] = useState([]);
 
     useEffect(() => {
-        fetch('https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/carts')
+        fetch('http://localhost:5000/carts')
             .then(res => res.json())
             .then(data => setClasses(data))
     }, [])
@@ -29,7 +30,7 @@ const MySelectedClasses = () => {
             if (result.isConfirmed) {
 
 
-                fetch(`https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/carts/${_id}`, {
+                fetch(`http://localhost:5000/carts/${_id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())
@@ -47,10 +48,6 @@ const MySelectedClasses = () => {
                     })
             }
         })
-    }
-
-    const handlePay = _id => {
-
     }
 
 
@@ -93,7 +90,7 @@ const MySelectedClasses = () => {
                                 <button className="btn btn-ghost btn-xs" onClick={() => handleDelete(c._id)}>Delete</button>
                             </th>
                             <th>
-                                <button className="btn btn-ghost btn-xs" onClick={() => handlePay(c._id)}>Pay</button>
+                                <Link to={`/dashboard/payment/${c._id}`}><button className="btn btn-ghost btn-xs">Pay</button></Link>
                             </th>
                         </tr>)
                     }

@@ -4,6 +4,7 @@ import { GoogleAuthProvider, updateProfile } from 'firebase/auth';
 import { AuthContext } from '../../../providers/AuthProviders';
 import useTitle from '../../../hooks/useTitle';
 import Swal from 'sweetalert2';
+import { FaGoogle } from 'react-icons/fa';
 
 const Register = () => {
 
@@ -70,7 +71,7 @@ const Register = () => {
                 .then(() => {
                     // console.log('user name updated')
                     const saveUser = { name: name, email: user.email, photo: photo }
-                    fetch('https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/users', {
+                    fetch('http://localhost:5000/users', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json'
@@ -158,7 +159,7 @@ const Register = () => {
                             <div className="divider"></div>
                             <div className='text-center'>
                                 <button onClick={handleGoogleLogin} className="btn btn-circle btn-outline">
-                                    G
+                                    <FaGoogle></FaGoogle>
                                 </button>
                             </div>
                         </form>

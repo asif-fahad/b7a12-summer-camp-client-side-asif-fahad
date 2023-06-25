@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../providers/AuthProviders';
 import Swal from 'sweetalert2';
 import useTitle from '../../hooks/useTitle';
+import { useLocation, useNavigate } from 'react-router-dom';
+import useRoles from '../../hooks/useRoles';
 
 const Classes = () => {
     const { user } = useContext(AuthContext);
@@ -9,24 +11,36 @@ const Classes = () => {
     useTitle('Classes');
 
     const [classes, setClasses] = useState([]);
-    const [isButtonDisabled, setButtonDisabled] = useState(false);
+    const [role, isRoleLoading] = useRoles();
+
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
-        fetch('https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/classes')
+        fetch('http://localhost:5000/classes/approved')
             .then(res => res.json())
             .then(data => setClasses(data))
     }, [])
 
     const handleSelect = (item) => {
 
+        if (!user) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please Login First",
 
+            });
+
+            return navigate('/login', { state: { from: location, replace: true } });
+        }
 
         const { _id, name, iName, photo, price, seats, email } = item;
 
 
         if (user && user.email) {
             const cartItem = { menuItemId: _id, name, iName, photo, price, seats, email: user.email }
-            fetch('https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/carts', {
+            fetch('http://localhost:5000/carts', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -35,7 +49,6 @@ const Classes = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    setButtonDisabled(true);
                     if (data.insertedId) {
                         // refetch(); // refetch cart to update the number of items in the cart
                         Swal.fire({
@@ -46,22 +59,7 @@ const Classes = () => {
                             timer: 1500
                         })
                     }
-                    setButtonDisabled(false);
                 })
-        }
-        else {
-            Swal.fire({
-                title: 'Please login to by the class',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Login now!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    navigate('/login', { state: { from: location } })
-                }
-            })
         }
 
     }
@@ -80,13 +78,14 @@ const Classes = () => {
                         <th>Instructor Email</th>
                         <th>Price</th>
                         <th>Available Seats</th>
+                        <th>Enrolled Students</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {/* row 1 */}
                     {
-                        classes.map((c, index) => <tr key={c._id}>
+                        classes.map((c, index) => <tr key={c._id} className={`${c.seats == 0 ? 'bg-red-400' : 'bg-base-100'}`}>
                             <td>
                                 {index + 1}
                             </td>
@@ -102,8 +101,9 @@ const Classes = () => {
                             <td>{c.email}</td>
                             <td>{c.price}</td>
                             <td>{c.seats}</td>
+                            <td>{c.enrolled}</td>
                             <th>
-                                <button onClick={() => handleSelect(c)} disabled={isButtonDisabled} className={isButtonDisabled ? "btn btn-warning btn-xs" : "btn btn-ghost btn-xs"}>Select</button>
+                                <button onClick={() => handleSelect(c)} disabled={role == 'Admin' || role == 'Instructor' || c.seats == 0} className="btn btn-outline btn-info btn-xs ">Select</button>
                             </th>
                         </tr>)
                     }

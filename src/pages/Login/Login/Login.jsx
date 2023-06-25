@@ -3,15 +3,20 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../providers/AuthProviders';
 import { GoogleAuthProvider } from 'firebase/auth';
 import useTitle from '../../../hooks/useTitle';
+import { FaEye, FaEyeSlash, FaGoogle } from 'react-icons/fa';
 
 const Login = () => {
 
     const { signIn, googleSignIn } = useContext(AuthContext);
 
     const [error, setError] = useState('');
-    const [showPassword, setShowPassword] = useState(false)
+    const [show, setShow] = useState(false);
 
     useTitle('Login')
+
+    const showPassword = () => {
+        setShow(!show);
+    };
 
     const googleProvider = new GoogleAuthProvider();
 
@@ -74,8 +79,16 @@ const Login = () => {
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type={showPassword ? "text" : "password"} name='password' placeholder="password" className="input input-bordered" required />
-                                <p className='cursor-pointer text-xs' onClick={() => setShowPassword(true)}>Show Password</p>
+                                <div className='flex'>
+                                    <input type={show ? "text" : "password"} name='password' placeholder="password" className="input input-bordered" required />
+                                    <button
+                                        type="button"
+                                        onClick={showPassword}
+                                        className="-ml-8"
+                                    >
+                                        {show ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}
+                                    </button>
+                                </div>
                                 <label className="label">
                                     <Link to='/register' className="label-text-alt link link-hover">Don't have a account? Register now.</Link>
                                 </label>
@@ -87,7 +100,7 @@ const Login = () => {
                             <div className="divider"></div>
                             <div className='text-center'>
                                 <button onClick={handleGoogleLogin} className="btn btn-circle btn-outline">
-                                    G
+                                    <FaGoogle></FaGoogle>
                                 </button>
                             </div>
                         </form>
