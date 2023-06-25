@@ -53,6 +53,7 @@ const MySelectedClasses = () => {
 
     return (
         <div className="overflow-x-auto">
+            <h1 className="font-bold text-5xl text-center pb-8">My Selected Classes</h1>
             <table className="table">
                 {/* head */}
                 <thead>
