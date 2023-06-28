@@ -41,7 +41,7 @@ const AddAClass = () => {
 
         console.log(updateClass);
 
-        fetch(`http://localhost:5000/classUpdate/${_id}`, {
+        fetch(`https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/classUpdate/${_id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'

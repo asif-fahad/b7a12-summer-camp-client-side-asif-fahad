@@ -11,7 +11,7 @@ const MySelectedClasses = () => {
     // const [classes, setClasses] = useState(cart);
 
     // useEffect(() => {
-    //     fetch('http://localhost:5000/carts')
+    //     fetch('https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/carts')
     //         .then(res => res.json())
     //         .then(data => setClasses(data))
     // }, [])
@@ -33,7 +33,7 @@ const MySelectedClasses = () => {
             if (result.isConfirmed) {
 
 
-                fetch(`http://localhost:5000/carts/${_id}`, {
+                fetch(`https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/carts/${_id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())

@@ -10,7 +10,7 @@ const Instructors = () => {
     // console.log(instructors);
 
     useEffect(() => {
-        fetch('http://localhost:5000/users/instructor')
+        fetch('https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/users/instructor')
             .then(res => res.json())
             .then(data => setInstructors(data))
     }, [])
