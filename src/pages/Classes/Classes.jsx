@@ -17,7 +17,7 @@ const Classes = () => {
     const location = useLocation();
 
     useEffect(() => {
-        fetch('https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/classes/approved')
+        fetch('http://localhost:5000/classes/approved')
             .then(res => res.json())
             .then(data => setClasses(data))
     }, [])
@@ -35,12 +35,12 @@ const Classes = () => {
             return navigate('/login', { state: { from: location, replace: true } });
         }
 
-        const { _id, name, iName, photo, price, seats, email } = item;
+        const { _id, name, iName, photo, price, seats, email, enrolled } = item;
 
 
         if (user && user.email) {
-            const cartItem = { menuItemId: _id, name, iName, photo, price, seats, email: user.email }
-            fetch('https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/carts', {
+            const cartItem = { classId: _id, name, iName: user?.displayName, photo, price, seats, email: user?.email, enrolled }
+            fetch('http://localhost:5000/carts', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -103,7 +103,7 @@ const Classes = () => {
                             <td>{c.seats}</td>
                             <td>{c.enrolled}</td>
                             <th>
-                                <button onClick={() => handleSelect(c)} disabled={role == 'Admin' || role == 'Instructor' || c.seats == 0} className="btn btn-outline btn-info btn-xs ">Select</button>
+                                <button onClick={() => handleSelect(c)} disabled={role == 'Admin' || role == 'Instructor' || c.seats == 0} className="btn btn-outline btn-ghost btn-xs">Select</button>
                             </th>
                         </tr>)
                     }

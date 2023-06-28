@@ -7,7 +7,7 @@ const PopularInstructors = () => {
     // console.log(instructors);
 
     useEffect(() => {
-        fetch('https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/users/instructor')
+        fetch('http://localhost:5000/users/instructor')
             .then(res => res.json())
             .then(data => setInstructors(data))
     }, [])
@@ -21,7 +21,7 @@ const PopularInstructors = () => {
                 {
                     instructors.slice(0, 6).map(c =>
                         <div key={c._id} className="card w-full lg:w-96 bg-blue-300 shadow-xl">
-                            <figure><img src={c.photo} alt="Sports" className='h-56 w-full' /></figure>
+                            <figure className="px-10 pt-10"><img src={c.photo} alt="Sports" className='h-56 w-full' /></figure>
                             <div className="card-body">
                                 <h2 className="card-title">Instructor Name: {c.name}</h2>
                                 <p>Email: {c.email}</p>

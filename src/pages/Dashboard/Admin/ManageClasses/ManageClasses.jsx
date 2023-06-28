@@ -13,7 +13,7 @@ const ManageClasses = () => {
     useTitle('Manage Classes');
 
     // useEffect(() => {
-    //     fetch('https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/classes')
+    //     fetch('http://localhost:5000/classes')
     //         .then(res => res.json())
     //         .then(data => setClasses(data))
     // }, [])
@@ -37,7 +37,7 @@ const ManageClasses = () => {
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
-                        title: "Approval Approved",
+                        title: "Approved",
                         showConfirmButton: false,
                         timer: 1500,
                     });
@@ -55,7 +55,7 @@ const ManageClasses = () => {
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
-                        title: "Approval Denied",
+                        title: "Denied",
                         showConfirmButton: false,
                         timer: 1500,
                     });
@@ -107,10 +107,10 @@ const ManageClasses = () => {
                             <th>
                                 <div className='flex flex-col space-y-1'>
                                     <button onClick={() => handleStatus(c)}
-                                        disabled={c.status === 'Approved' || c.status === 'Denied'} className="btn btn-primary btn-xs">Approve</button>
+                                        disabled={c.status === 'Approved' || c.status === 'Denied'} className="btn btn-outline btn-ghost btn-xs">Approve</button>
                                     <button onClick={() => handleDeny(c)}
-                                        disabled={c.status === 'Approved' || c.status === 'Denied'} className="btn btn-secondary btn-xs">Deny</button>
-                                    <Link to={`feedback/${c._id}`} disabled={c.status != 'Denied'} className="btn btn-accent btn-xs">Feedback</Link>
+                                        disabled={c.status === 'Approved' || c.status === 'Denied'} className="btn btn-outline btn-ghost btn-xs">Deny</button>
+                                    <Link to={`feedback/${c._id}`} disabled={c.status != 'Denied'} className="btn btn-outline btn-ghost btn-xs">Feedback</Link>
                                 </div>
                             </th>
                         </tr>)

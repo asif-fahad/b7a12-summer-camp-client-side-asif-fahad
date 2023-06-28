@@ -1,59 +1,59 @@
-import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import React, { useContext, useEffect, useState } from "react";
-import Swal from "sweetalert2";
-import { AuthContext } from "../../../../providers/AuthProviders";
-import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import React, { useContext, useEffect, useState } from 'react';
+import useAxiosSecure from '../../../../hooks/useAxiosSecure';
+import { AuthContext } from '../../../../providers/AuthProviders';
+import Swal from 'sweetalert2';
 
 const CheckoutForm = ({ cart, price }) => {
     const stripe = useStripe();
     const elements = useElements();
     const { user } = useContext(AuthContext);
     const [axiosSecure] = useAxiosSecure();
+    const [cardError, setCardError] = useState('');
+    const [clientSecret, setClientSecret] = useState("");
     const [processing, setProcessing] = useState(false);
     const [transactionId, setTransactionId] = useState('');
-    const [cardError, setCardError] = useState('');
-    const [clientSecret, setClientSecret] = useState('');
-
 
     useEffect(() => {
         if (price > 0) {
             axiosSecure.post('/create-payment-intent', { price })
                 .then(res => {
-                    // console.log(res.data.clientSecret)
+                    console.log(res.data.clientSecret);
                     setClientSecret(res.data.clientSecret);
                 })
         }
-    }, [price, axiosSecure])
+    }, [price, axiosSecure]);
 
-    // console.log(cart);
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (!stripe || !elements) {
-            return
+            return;
         }
 
         const card = elements.getElement(CardElement);
+
         if (card === null) {
-            return
+            return;
         }
 
-        const { error } = await stripe.createPaymentMethod({
+        const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
             card
         })
 
         if (error) {
-            // console.log('error', error)
+            console.log('error', error);
             setCardError(error.message);
         }
         else {
             setCardError('');
-            // console.log('payment method', paymentMethod)
+            // console.log('payment method', paymentMethod);
         }
 
-        setProcessing(true)
+        setProcessing(true);
 
         const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(
             clientSecret,
@@ -72,11 +72,13 @@ const CheckoutForm = ({ cart, price }) => {
             console.log(confirmError);
         }
 
-        console.log('payment intent', paymentIntent)
-        setProcessing(false)
+        console.log('paymentIntent', paymentIntent);
+
+        setProcessing(false);
+
         if (paymentIntent.status === 'succeeded') {
             setTransactionId(paymentIntent.id);
-            // save payment information to the server
+
             const payment = {
                 email: user?.email,
                 transactionId: paymentIntent.id,
@@ -86,11 +88,6 @@ const CheckoutForm = ({ cart, price }) => {
                 cartItems: cart._id,
                 classId: cart.classId,
                 classNames: cart.name
-                // quantity: cart.length,
-                // cartItems: cart.map(item => item._id),
-                // classId: cart.map(item => item.classId),
-                // status: 'service pending',
-                // classNames: cart.map(item => item.className)
             }
             axiosSecure.post('/payments', payment)
                 .then(res => {
@@ -108,36 +105,33 @@ const CheckoutForm = ({ cart, price }) => {
                 })
         }
 
-
     }
+
     return (
         <>
-            <form className="w-2/3 m-8" onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <CardElement
+                    className='bg-gray-100'
                     options={{
                         style: {
                             base: {
-                                fontSize: "16px",
-                                color: "#424770",
-                                "::placeholder": {
-                                    color: "#aab7c4",
+                                fontSize: '16px',
+                                color: '#424770',
+                                '::placeholder': {
+                                    color: '#aab7c4',
                                 },
                             },
                             invalid: {
-                                color: "#9e2146",
+                                color: '#9e2146',
                             },
                         },
                     }}
                 />
-                <button
-                    className="btn btn-primary btn-sm mt-4"
-                    type="submit"
-                    disabled={!stripe || !clientSecret || processing}
-                >
+                <button className='btn btn-outline btn-primary btn-sm m-8' type="submit" disabled={!stripe || !clientSecret || processing}>
                     Pay
                 </button>
             </form>
-            {cardError && <p className="text-red-600 ml-8">{cardError}</p>}
+            {cardError && <p className='text-red-600'>{cardError}</p>}
             {transactionId && (
                 <p className="text-green-500">
                     Transaction complete with transactionId: {transactionId}

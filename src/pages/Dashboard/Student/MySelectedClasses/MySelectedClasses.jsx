@@ -2,18 +2,21 @@ import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import useTitle from '../../../../hooks/useTitle';
 import { Link } from 'react-router-dom';
+import useCart from '../../../../hooks/useCart';
 
 const MySelectedClasses = () => {
 
     useTitle('My Selected Classes');
 
-    const [classes, setClasses] = useState([]);
+    // const [classes, setClasses] = useState(cart);
 
-    useEffect(() => {
-        fetch('https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/carts')
-            .then(res => res.json())
-            .then(data => setClasses(data))
-    }, [])
+    // useEffect(() => {
+    //     fetch('http://localhost:5000/carts')
+    //         .then(res => res.json())
+    //         .then(data => setClasses(data))
+    // }, [])
+
+    const [cart, refetch] = useCart();
 
     const handleDelete = _id => {
         console.log(_id);
@@ -30,7 +33,7 @@ const MySelectedClasses = () => {
             if (result.isConfirmed) {
 
 
-                fetch(`https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/carts/${_id}`, {
+                fetch(`http://localhost:5000/carts/${_id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())
@@ -42,8 +45,7 @@ const MySelectedClasses = () => {
                                 'Your Class has been deleted.',
                                 'success'
                             )
-                            const remaining = classes.filter(c => c._id !== _id);
-                            setClasses(remaining);
+                            refetch();
                         }
                     })
             }
@@ -71,7 +73,7 @@ const MySelectedClasses = () => {
                 <tbody>
                     {/* row 1 */}
                     {
-                        classes.map((c, index) => <tr key={c._id}>
+                        cart.map((c, index) => <tr key={c._id}>
                             <td>
                                 {index + 1}
                             </td>
@@ -88,10 +90,10 @@ const MySelectedClasses = () => {
                             <td>{c.price}</td>
                             <td>{c.seats}</td>
                             <th>
-                                <button className="btn btn-ghost btn-xs" onClick={() => handleDelete(c._id)}>Delete</button>
+                                <button className="btn btn-outline btn-ghost btn-xs" onClick={() => handleDelete(c._id)}>Delete</button>
                             </th>
                             <th>
-                                <Link to={`/dashboard/payment/${c._id}`}><button className="btn btn-ghost btn-xs">Pay</button></Link>
+                                <Link to={`/dashboard/payment/${c._id}`}><button className="btn btn-ghost btn-outline btn-xs">Pay</button></Link>
                             </th>
                         </tr>)
                     }

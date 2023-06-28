@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
 
 const PopularClasses = () => {
 
-    const [classes, setClasses] = useState([]);
-
-    useEffect(() => {
-        fetch('https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/classes')
-            .then(res => res.json())
-            .then(data => setClasses(data))
-    }, [])
+    const [axiosSecure] = useAxiosSecure();
+    const { data: classes = [], refetch } = useQuery(
+        ["classesPopular"],
+        async () => {
+            const res = await axiosSecure.get("/classes/popular");
+            return res.data;
+        }
+    );
 
 
     return (
@@ -19,7 +22,7 @@ const PopularClasses = () => {
             <div className='grid grid-cols lg:grid-cols-3 mt-2 gap-5'>
                 {
                     classes.slice(0, 6).map(c =>
-                        <div key={c._id} className="card w-full lg:w-96 bg-green-300 shadow-xl">
+                        <div key={c._id} className="card w-full lg:w-96 bg-green-300 shadow-xl hover:scale-110">
                             <figure><img src={c.photo} alt="Sports" className='h-56 w-full' /></figure>
                             <div className="card-body">
                                 <h2 className="card-title">{c.name}</h2>

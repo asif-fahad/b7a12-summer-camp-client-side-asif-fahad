@@ -24,12 +24,12 @@ const AddAClass = () => {
 
 
         const newClass = { name, photo, iName, email, price, seats };
-        newClass.status = Pending;
+        newClass.status = 'Pending';
         newClass.enrolled = 0;
 
         console.log(newClass);
 
-        fetch('https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/classes', {
+        fetch('http://localhost:5000/classes', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
