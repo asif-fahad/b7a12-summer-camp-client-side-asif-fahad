@@ -7,10 +7,16 @@ const useRoles = () => {
     const [axiosSecure] = useAxiosSecure();
     const { user, loading } = useContext(AuthContext);
     const { data: roles, isloading: isRolesLoading } = useQuery({
-        queryKey: ['rules', user?.email],
-        enabled: !loading,
+        queryKey: ['roles', user?.email],
+        enabled: !loading && user != null,
         queryFn: async () => {
+
+            if (!user) {
+                throw new Error('User not available.'); // Throw an error if user is not available
+            }
+
             const res = await axiosSecure.get(`/users/admin/${user?.email}`);
+
             return res.data.message;
         }
     })

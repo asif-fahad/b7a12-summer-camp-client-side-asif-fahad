@@ -11,7 +11,7 @@ const Classes = () => {
     useTitle('Classes');
 
     const [classes, setClasses] = useState([]);
-    const [role, isRoleLoading] = useRoles();
+    const [roles, isRoleLoading] = useRoles();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -103,7 +103,7 @@ const Classes = () => {
                             <td>{c.seats}</td>
                             <td>{c.enrolled}</td>
                             <th>
-                                <button onClick={() => handleSelect(c)} disabled={role == 'Admin' || role == 'Instructor' || c.seats == 0} className="btn btn-outline btn-ghost btn-xs">Select</button>
+                                <button onClick={() => handleSelect(c)} disabled={roles == 'Admin' || roles == 'Instructor' || c.seats == 0} className="btn btn-outline btn-ghost btn-xs">Select</button>
                             </th>
                         </tr>)
                     }
