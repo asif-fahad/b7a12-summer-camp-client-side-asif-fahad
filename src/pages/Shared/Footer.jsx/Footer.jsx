@@ -1,7 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from '../../../../public/images/logo.png';
 
 const Footer = () => {
+    const [showButton, setShowButton] = useState(false);
+
+    // Function to handle scrolling to the top of the page
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth', // This will create a smooth scrolling effect
+        });
+    };
+
+    // Function to check if the button should be shown based on the scroll position
+    const handleScroll = () => {
+        if (window.scrollY > 200) {
+            setShowButton(true);
+        } else {
+            setShowButton(false);
+        }
+    };
+
+    // Add an event listener to handle the scroll event
+    React.useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
     return (
         <div>
             <footer className="footer p-10 bg-base-200 text-base-content">
@@ -46,6 +72,14 @@ const Footer = () => {
                     </div>
                 </div>
             </footer>
+            {showButton && (
+                <button
+                    className="fixed bottom-8 right-8 bg-slate-500 text-white px-4 py-2 rounded-full shadow-md"
+                    onClick={scrollToTop}
+                >
+                    Scroll to Top
+                </button>
+            )}
             <footer>
                 <div className='text-center bg-base-200 mb-2'>
                     <p>Copyright © 2023 - All right reserved by Fahad's Sports</p>

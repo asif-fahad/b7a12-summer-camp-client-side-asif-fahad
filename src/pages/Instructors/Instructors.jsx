@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import useTitle from '../../hooks/useTitle';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 const Instructors = () => {
 
     useTitle('Instructors');
 
     const [instructors, setInstructors] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     // console.log(instructors);
 
@@ -13,6 +15,7 @@ const Instructors = () => {
         fetch('https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/users/instructor')
             .then(res => res.json())
             .then(data => setInstructors(data))
+        setLoading(false);
     }, [])
 
 
@@ -30,7 +33,7 @@ const Instructors = () => {
                 </thead>
                 <tbody>
                     {/* row 1 */}
-                    {
+                    {loading ? (<LoadingSpinner />) : (
                         instructors.map((c, index) => <tr key={c._id}>
                             <td>
                                 {index + 1}
@@ -45,7 +48,7 @@ const Instructors = () => {
                             <td>{c.name}</td>
                             <td>{c.email}</td>
                         </tr>)
-                    }
+                    )}
 
 
                 </tbody>

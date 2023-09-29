@@ -20,6 +20,8 @@ import InstructorRoute from "./InstructorRoute";
 import PaymentHistory from "../pages/Dashboard/Student/PaymentHistory/PaymentHistory";
 import UpdateClass from "../pages/Dashboard/Instructor/UpdateClass/UpdateClass";
 import Feedback from "../pages/Dashboard/Admin/Feedback/Feedback";
+import Blog from "../pages/Blog/Blog";
+import About from "../pages/About/About";
 
 
 const router = createBrowserRouter([
@@ -48,6 +50,14 @@ const router = createBrowserRouter([
                 path: 'classes',
                 element: <Classes></Classes>
             },
+            {
+                path: 'blog',
+                element: <Blog></Blog>
+            },
+            {
+                path: 'about',
+                element: <About></About>
+            }
         ]
     },
     {

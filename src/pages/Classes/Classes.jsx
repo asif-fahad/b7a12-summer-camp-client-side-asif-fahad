@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import useTitle from '../../hooks/useTitle';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useRoles from '../../hooks/useRoles';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 const Classes = () => {
     const { user } = useContext(AuthContext);
@@ -12,6 +13,7 @@ const Classes = () => {
 
     const [classes, setClasses] = useState([]);
     const [roles, isRoleLoading] = useRoles();
+    const [loading, setLoading] = useState(true);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -20,6 +22,7 @@ const Classes = () => {
         fetch('https://b7a12-summer-camp-server-side-asif-fahad.vercel.app/classes/approved')
             .then(res => res.json())
             .then(data => setClasses(data))
+        setLoading(false);
     }, [])
 
     const handleSelect = (item) => {
@@ -84,7 +87,8 @@ const Classes = () => {
                 </thead>
                 <tbody>
                     {/* row 1 */}
-                    {
+                    {loading ? (<LoadingSpinner />) : (
+
                         classes.map((c, index) => <tr key={c._id} className={`${c.seats == 0 ? 'bg-red-400' : 'bg-base-100'}`}>
                             <td>
                                 {index + 1}
@@ -106,7 +110,8 @@ const Classes = () => {
                                 <button onClick={() => handleSelect(c)} disabled={roles == 'Admin' || roles == 'Instructor' || c.seats == 0} className="btn btn-outline btn-ghost btn-xs">Select</button>
                             </th>
                         </tr>)
-                    }
+
+                    )}
 
 
                 </tbody>
